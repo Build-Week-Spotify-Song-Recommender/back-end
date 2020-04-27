@@ -5,19 +5,27 @@ const jwt = require('jsonwebtoken');
 const Users = require('../users/users-model.js');
 
 // for endpoints beginning with /api/auth
+
 router.post('/register', (req, res) => {
 
-  let user = req.body;
-  const hash = bcrypt.hashSync(user.password, 14); // 2 ^ n
-  user.password = hash;
+  let { username } = req.body;
 
-  Users.add(user)
-    .then(saved => {
-      res.status(201).json({message: 'a new user was added'});
-    })
-    .catch(error => {
-      res.status(500).json(error);
-    });
+  if(!Users.findBy({username})){
+
+    let user = req.body;
+    const hash = bcrypt.hashSync(user.password, 14); // 2 ^ n
+    user.password = hash;
+
+    Users.add(user)
+      .then(saved => {
+        res.status(201).json({message: 'a new user was added'});
+      })
+      .catch(error => {
+        res.status(500).json(error);
+      });
+  } else {
+    res.status(403).json({message: 'username is already used'})
+  }
 });
 
 router.post('/login', (req, res) => {
