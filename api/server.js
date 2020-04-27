@@ -12,6 +12,4 @@ server.use(cors());
 server.use(helmet.hidePoweredBy({ setTo: process.env.HEADER }));
 helmet.frameguard({action: 'deny'});
 
-
-
 module.exports = server;
