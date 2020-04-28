@@ -35,7 +35,8 @@ exports.up = function(knex) {
 
         //foreign key
         tbl
-            .string('user_id',255)
+            .integer('user_id')
+            .unsigned()
             .notNullable()
             .references('id')
             .inTable('users')
@@ -44,7 +45,8 @@ exports.up = function(knex) {
 
         //foreign key
         tbl
-            .string('song_id',255)
+            .integer('song_id')
+            .unsigned()
             .notNullable()
             .references('id')
             .inTable('songs')
