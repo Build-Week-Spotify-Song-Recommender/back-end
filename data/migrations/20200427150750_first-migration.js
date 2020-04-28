@@ -11,6 +11,11 @@ exports.up = function(knex) {
             .notNullable()
             .unique()
             .index();
+
+        tbl
+        .string('emailAddress', 128)
+        .notNullable()
+        .unique();
         
         tbl.string('password', 128).notNullable();
     })
