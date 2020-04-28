@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Welcome to the spotify song suggester backend documentation!
 
 ### More endpoints will be added to this document as they become available.
@@ -54,3 +55,9 @@ If successful, the login request will get the following response, also as JSON:
 ```
 
 ---
+=======
+# back-end
+Back-end work goe shere
+
+ - [Product Vision Document](https://www.notion.so/nburkhal/Product-Vision-Document-for-Spotify-App-7dfcfe55daea496f804b47f2cac62174)
+>>>>>>> master
