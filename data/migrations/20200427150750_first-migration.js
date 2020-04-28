@@ -44,7 +44,6 @@ exports.up = function(knex) {
             .onUpdate('CASCADE');
 
         tbl.unique(['user_id', 'song_id']);
-
     });
 };
 

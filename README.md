@@ -48,7 +48,7 @@ If successful, the login request will get the following response, also as JSON:
 
 ```
 {
-  message: `Welcome ${user.username}!`,
+  "message": `Welcome ${user.username}!`,
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pbmEiLCJyb2xlIjoidXNlciIsImlhdCI6MTU4MzE2Nzg4NywiZXhwIjoxNTgzMjU0Mjg3fQ.v6rRltdEr30KAzXbpPkVv1DFXa7t5lBRXRquHMvzmic"
 }
 ```
