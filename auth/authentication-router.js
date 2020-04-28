@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const secrets = require('./secrets.js');
+
 require('dotenv').config();
 
 const Users = require('../users/users-model.js');
@@ -11,25 +13,29 @@ router.post('/register', (req, res) => {
 
   let { username } = req.body;
 
-  if(!Users.findBy({username})){
+  Users.findBy({username})
+    .then(found => {
 
-    let user = req.body;
-    const hash = bcrypt.hashSync(user.password, 14); // 2 ^ n
-    user.password = hash;
+      if(found.length === 0){
+        let user = req.body;
+        const hash = bcrypt.hashSync(user.password, 14); // 2 ^ n
+        user.password = hash;
 
-    Users.add(user)
-      .then(saved => {
-        res.status(201).json({message: 'a new user was added'});
-      })
-      .catch(error => {
-        res.status(500).json(error);
-      });
-  } else {
-    res.status(403).json({message: 'username is already used'})
-  }
+        Users.add(user)
+          .then(saved => {
+            res.status(201).json({message: 'a new user was added'});
+          })
+          .catch(error => {
+            res.status(500).json(error);
+          });
+      } else {
+        res.status(403).json({message: 'username is already used'});
+      }
+    })
 });
 
 router.post('/login', (req, res) => {
+
   let { username, password } = req.body;
 
   Users.findBy({ username })
@@ -58,7 +64,7 @@ function generateToken(user){
     username: user.username
   };
 
-  const secret = process.env.JWT_SECRET;
+  const secret = secrets.jwtSecret;
 
   const options ={
     expiresIn: '1h'

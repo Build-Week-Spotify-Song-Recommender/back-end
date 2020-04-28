@@ -1,14 +1,16 @@
 const jwt = require('jsonwebtoken');
+const secrets = require('./secrets.js');
 
 module.exports = (req, res, next) => {
     
     const token = req.headers.authorization;
-    const secret = process.env.JWT_SECRET;
+    const secret = secrets.jwtSecret;
 
     if(token){
         jwt.verify(token,secret, (err, decodedToken) => {
         
             if(err){
+                console.log(err);
                 res.status(500).json({message: 'Sorry, internal error occurred'})
             } else {
                 req.decodedToken = decodedToken;

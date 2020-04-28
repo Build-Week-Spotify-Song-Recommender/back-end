@@ -19,6 +19,9 @@ exports.up = function(knex) {
     .createTable('songs', tbl => {
         tbl.increments();
 
+        tbl.string('title', 128).notNullable().index();
+        tbl.string('artist', 128).notNullable().index();
+        tbl.string('album', 128).notNullable();
     })
 
     //database table for saved songs
@@ -44,7 +47,6 @@ exports.up = function(knex) {
             .onUpdate('CASCADE');
 
         tbl.unique(['user_id', 'song_id']);
-
     });
 };
 
