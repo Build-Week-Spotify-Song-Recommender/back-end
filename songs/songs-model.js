@@ -2,10 +2,15 @@ const db = require('../data/db-config.js');
 
 module.exports = {
   add,
+  getAll,
   findBy,
   findById,
   removeById
 };
+
+function getAll() {
+    return db('songs');
+  }
 
 function findBy(filter) {
   return db('songs').where(filter);
