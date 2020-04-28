@@ -31,7 +31,7 @@ exports.up = function(knex) {
             .notNullable()
             .references('id')
             .inTable('users')
-            .onDelete('RESTRICT')
+            .onDelete('CASCADE')
             .onUpdate('CASCADE');
 
         //foreign key
@@ -40,7 +40,7 @@ exports.up = function(knex) {
             .notNullable()
             .references('id')
             .inTable('songs')
-            .onDelete('RESTRICT')
+            .onDelete('CASCADE')
             .onUpdate('CASCADE');
 
         tbl.unique(['user_id', 'song_id']);
