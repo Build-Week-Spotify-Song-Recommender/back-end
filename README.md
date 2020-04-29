@@ -88,6 +88,34 @@ If successful, the GET request will send back the following response, also as JS
 ```
 
 ---
+
+## Add to Favorite songs
+
+Make a POST request to:
+
+https://spotify-song-suggester-project.herokuapp.com/api/songs/:id
+
+where :id in the URL is the id of the user.
+
+The POST request must include the following fields in the request body as JSON:
+
+{
+  "title": "song1",
+  "artist": "artist1",
+  "album": "album1",
+  "album_cover_art": "linkToImage"
+}
+
+If successful, the POST request will send back the following response, also as JSON:
+
+```
+{
+  message: 'a new song was added to favorites'
+}
+```
+
+---
+
 =======
 # back-end
 Back-end work goe shere
