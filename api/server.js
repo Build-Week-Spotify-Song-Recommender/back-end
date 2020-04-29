@@ -10,6 +10,7 @@ const authenticator = require('../auth/authentication-check-middleware.js');
 
 const server = express();
 
+server.use(cors());
 server.use(helmet());
 server.use(express.json());
 
