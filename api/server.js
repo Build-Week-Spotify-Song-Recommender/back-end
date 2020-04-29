@@ -1,6 +1,8 @@
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
+const morgan = require('morgan');
+
 require('dotenv').config()
 
 const authRouter = require('../auth/authentication-router.js');
@@ -10,9 +12,10 @@ const authenticator = require('../auth/authentication-check-middleware.js');
 
 const server = express();
 
-server.use(cors());
 server.use(helmet());
+server.use(cors());
 server.use(express.json());
+server.use(morgan('common'));
 
 // server.use(helmet.hidePoweredBy({ setTo: process.env.HEADER }));
 // helmet.frameguard({action: 'deny'});
