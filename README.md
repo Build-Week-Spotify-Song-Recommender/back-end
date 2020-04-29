@@ -99,12 +99,14 @@ where :id in the URL is the id of the user.
 
 The POST request must include the following fields in the request body as JSON:
 
+```
 {
   "title": "song1",
   "artist": "artist1",
   "album": "album1",
   "album_cover_art": "linkToImage"
 }
+```
 
 If successful, the POST request will send back the following response, also as JSON:
 
