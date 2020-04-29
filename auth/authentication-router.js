@@ -25,9 +25,9 @@ router.post('/register', (req, res) => {
             console.log(saved)
             res.status(201).json({message: 'a new user was added'});
           })
-          .catch(error => {
-            console.log(error);
-            res.status(500).json(error);
+          .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
           });
       } else {
         res.status(403).json({message: 'username is already used'});
@@ -59,8 +59,8 @@ router.post('/login', (req, res) => {
         res.status(401).json({ message: 'Invalid Credentials' });
       }
     })
-    .catch(error => {
-      res.status(500).json(error);
+    .catch(err=> {
+      res.status(500).json(err);
     });
 });
 

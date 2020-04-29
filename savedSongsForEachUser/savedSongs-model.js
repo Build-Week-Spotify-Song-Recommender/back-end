@@ -5,7 +5,7 @@ module.exports = {
   getAllSavedSongsForUser,
   findBy,
   findById,
-  removeById
+  removeSongFromSaved
 };
 
 function getAllSavedSongsForUser(passedUserId) {
@@ -32,8 +32,8 @@ function findById(id) {
     .first();
 }
 
-function removeById(id) {
+function removeSongFromSaved(passedUserId, passedSongId) {
     return db('savedSongs')
-      .where({ id })
+      .where({user_id: passedUserId, song_id:passedSongId })
       .del();
 }

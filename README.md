@@ -118,6 +118,32 @@ If successful, the POST request will send back the following response, also as J
 
 ---
 
+## Delete a song from favorite songs
+
+Make a DELETE request to:
+
+https://spotify-song-suggester-project.herokuapp.com/api/songs/:id
+
+where :id in the URL is the id of the user.
+
+The DELETE request must include the following fields in the request body as JSON:
+
+```
+{
+  "title": "song1"
+}
+```
+
+If successful, the DELETE request will send back the following response, also as JSON:
+
+```
+{
+  message: `${songTitle} was removed from favorites`
+}
+```
+
+---
+
 =======
 # back-end
 Back-end work goe shere
