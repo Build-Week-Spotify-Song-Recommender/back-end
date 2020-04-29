@@ -21,6 +21,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/:id', (req, res) => {
 
+    const userId = req.params.id;
     let newSong = req.body;
     let title = newSong.title;
 
@@ -28,28 +29,44 @@ router.post('/:id', (req, res) => {
     .then(found => {
         console.log('es',found);
         if(found.length === 0){
+            console.log('inside if')
             songsInDatabase.add(newSong)
             .then(newAddedSong => {
                 console.log('new song added', newAddedSong);
 
-                const songId = songsInDatabase.getSongID(newSong.title);
-
-                savedSongs.add(JSON.stringify({user_id:req.params.id, song_id:songId}))
-                .then(added => {
-                    res.status(201).json({message: 'a new song was added to favorities'})
+                songsInDatabase.getSongID(title)
+                .then(foundId => {
+                    const songId = foundId.id;
+                    const newSavedSong = {user_id:userId, song_id:songId};
+        
+                    savedSongs.add(newSavedSong)
+                        .then(added => {
+                            res.status(201).json({message: 'a new song was added to favorities'})
+                        })
+                        .catch(err =>{
+                            console.log(err);
+                            res.status(500).json({message: 'something went wrong'});
+                        })
                 })
             })
         } else {
-            const songId = songsInDatabase.getSongID(newSong.title);
-            
-            savedSongs.add(JSON.stringify({user_id:req.params.id, song_id:songId}))
-                .then(added => {
-                    res.status(201).json({message: 'a new song was added to favorities'})
-                })
+            songsInDatabase.getSongID(title)
+            .then(foundId => {
+                const songId = foundId.id;
+                const newSavedSong = {user_id:userId, song_id:songId};
+    
+                savedSongs.add(newSavedSong)
+                    .then(added => {
+                        res.status(201).json({message: 'a new song was added to favorities'})
+                    })
+                    .catch(err =>{
+                        console.log(err);
+                        res.status(500).json({message: 'something went wrong'});
+                    })
+            })
         }
     })
     .catch(err =>{
-        // console.log('no');
         console.log(err);
         res.status(500).json({message: 'something went wrong'});
     })
