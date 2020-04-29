@@ -70,7 +70,7 @@ If successful, the GET request will send back the following response, also as JS
 
 ```
 {
-  allSavedSongs: [
+  "allSavedSongs": [
     {
       "title": "try1",
       "artist": "firsttry",
@@ -112,7 +112,7 @@ If successful, the POST request will send back the following response, also as J
 
 ```
 {
-  message: 'a new song was added to favorites'
+  "message": "a new song was added to favorites"
 }
 ```
 
@@ -138,7 +138,7 @@ If successful, the DELETE request will send back the following response, also as
 
 ```
 {
-  message: `${songTitle} was removed from favorites`
+  "message": `${songTitle} was removed from favorites`
 }
 ```
 
