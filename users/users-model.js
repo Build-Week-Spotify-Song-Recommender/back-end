@@ -23,6 +23,7 @@ function findById(id) {
     .first();
 }
 
+//returns id of the first user with matched passed username
 function getUserID(username) {
   return db.select('id').from('users').where({username}).first();
 }

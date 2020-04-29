@@ -19,19 +19,31 @@ router.get('/:id', (req, res) => {
         })
 });
 
-router.post('/', (req, res) => {
+router.post('/:id', (req, res) => {
 
     let newSong = req.body;
 
-    Songs.findBy(newSong.title)
+    songsInDatabase.findBy(newSong.title)
     .then(found => {
         if(found.length === 0){
-            Songs.add(newSong)
+            songsInDatabase.add(newSong)
             .then(newAddedSong => {
-                res.status(201).json({message: 'a new song was added'})
+                console.log('new song added', newAddedSong);
+
+                const songId = songsInDatabase.getSongID(newSong.title);
+
+                savedSongs.add(JSON.stringify({user_id: req.params.id, song_id: songId}))
+                .then(added => {
+                    res.status(201).json({message: 'a new song was added to favorities'})
+                })
             })
         } else {
-            res.status(403).json({message: 'already in the database'});
+            const songId = songsInDatabase.getSongID(newSong.title);
+
+            savedSongs.add(JSON.stringify({user_id: req.params.id, song_id: songId}))
+                .then(added => {
+                    res.status(201).json({message: 'a new song was added to favorities'})
+                })
         }
     })
     .catch(err =>{

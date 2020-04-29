@@ -17,7 +17,7 @@ server.use(express.json());
 // server.use(helmet.hidePoweredBy({ setTo: process.env.HEADER }));
 // helmet.frameguard({action: 'deny'});
 
-server.use('/api/auth', authRouter);
+server.use('/api/auth', cors(),authRouter);
 server.use('/api/songs', authenticator,songsRouter);
 
 server.get('/', (req, res)=>{

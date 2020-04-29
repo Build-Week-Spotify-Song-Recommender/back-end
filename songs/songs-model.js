@@ -5,7 +5,8 @@ module.exports = {
   getAll,
   findBy,
   findById,
-  removeById
+  removeById,
+  getSongID
 };
 
 function getAll() {
@@ -32,4 +33,9 @@ function removeById(id) {
     return db('songs')
       .where({ id })
       .del();
-  }
+}
+
+//returns id of the first song with matched passed title
+function getSongID(title) {
+  return db.select('id').from('users').where({title}).first();
+}

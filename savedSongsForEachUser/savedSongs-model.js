@@ -20,8 +20,8 @@ function findBy(filter) {
   return db('savedSongs').where(filter);
 }
 
-async function add(song) {
-  const [id] = await db('savedSongs').insert(song);
+async function add(passedConnection) {
+  const [id] = await db('savedSongs').insert(passedConnection);
 
   return findById(id);
 }
@@ -36,4 +36,4 @@ function removeById(id) {
     return db('savedSongs')
       .where({ id })
       .del();
-  }
+}
