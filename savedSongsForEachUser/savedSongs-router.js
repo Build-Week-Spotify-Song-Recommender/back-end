@@ -22,9 +22,11 @@ router.get('/:id', (req, res) => {
 router.post('/:id', (req, res) => {
 
     let newSong = req.body;
+    let title = newSong.title;
 
-    songsInDatabase.findBy(newSong.title)
+    songsInDatabase.findBy({title})
     .then(found => {
+        console.log('es',found);
         if(found.length === 0){
             songsInDatabase.add(newSong)
             .then(newAddedSong => {
@@ -32,21 +34,22 @@ router.post('/:id', (req, res) => {
 
                 const songId = songsInDatabase.getSongID(newSong.title);
 
-                savedSongs.add(JSON.stringify({user_id: req.params.id, song_id: songId}))
+                savedSongs.add(JSON.stringify({user_id:req.params.id, song_id:songId}))
                 .then(added => {
                     res.status(201).json({message: 'a new song was added to favorities'})
                 })
             })
         } else {
             const songId = songsInDatabase.getSongID(newSong.title);
-
-            savedSongs.add(JSON.stringify({user_id: req.params.id, song_id: songId}))
+            
+            savedSongs.add(JSON.stringify({user_id:req.params.id, song_id:songId}))
                 .then(added => {
                     res.status(201).json({message: 'a new song was added to favorities'})
                 })
         }
     })
     .catch(err =>{
+        // console.log('no');
         console.log(err);
         res.status(500).json({message: 'something went wrong'});
     })
