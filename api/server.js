@@ -18,8 +18,8 @@ server.use(express.json());
 // helmet.frameguard({action: 'deny'});
 
 var corsOptions = {
-    origin: 'http://example.com',
-    optionsSuccessStatus: 301 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    origin: 'http://localhost:',
+    optionsSuccessStatus: 3001 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 
 server.use('/api/auth', cors(corsOptions),authRouter);
