@@ -31,5 +31,5 @@ function findById(id) {
 function removeById(id) {
     return db('songs')
       .where({ id })
-      .remove();
+      .del();
   }

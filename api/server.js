@@ -4,15 +4,15 @@ const cors = require('cors');
 require('dotenv').config()
 
 const authRouter = require('../auth/authentication-router.js');
-const songsRouter = require('../songs/songs-router.js');
+const songsRouter = require('../savedSongsForEachUser/savedSongs-router');
 
 const authenticator = require('../auth/authentication-check-middleware.js');
 
 const server = express();
 
 server.use(helmet());
-server.use(express.json());
 server.use(cors());
+server.use(express.json());
 
 // server.use(helmet.hidePoweredBy({ setTo: process.env.HEADER }));
 // helmet.frameguard({action: 'deny'});
