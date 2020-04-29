@@ -17,7 +17,12 @@ server.use(express.json());
 // server.use(helmet.hidePoweredBy({ setTo: process.env.HEADER }));
 // helmet.frameguard({action: 'deny'});
 
-server.use('/api/auth', cors(),authRouter);
+var corsOptions = {
+    origin: 'http://example.com',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+
+server.use('/api/auth', cors(corsOptions),authRouter);
 server.use('/api/songs', authenticator,songsRouter);
 
 server.get('/', (req, res)=>{
