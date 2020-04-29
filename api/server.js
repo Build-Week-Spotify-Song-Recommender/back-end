@@ -17,12 +17,9 @@ server.use(express.json());
 // server.use(helmet.hidePoweredBy({ setTo: process.env.HEADER }));
 // helmet.frameguard({action: 'deny'});
 
-var corsOptions = {
-    origin: 'http://localhost:',
-    optionsSuccessStatus: 3001 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
 
-server.use('/api/auth', cors(corsOptions),authRouter);
+
+server.use('/api/auth',authRouter);
 server.use('/api/songs', authenticator,songsRouter);
 
 server.get('/', (req, res)=>{
