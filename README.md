@@ -16,7 +16,8 @@ The registration request must include the following fields in the request body a
 ```
 {
   "username": "adamuser",
-  "password": "password"
+  "password": "password",
+  "emailAddress": "emailAddress"
 }
 ```
 
@@ -24,7 +25,7 @@ If successful, the registration request will get the following response, also as
 
 ```
 {
-  message: 'a new user was added'
+  "message": 'a new user was added'
 }
 ```
 
@@ -50,7 +51,39 @@ If successful, the login request will get the following response, also as JSON:
 ```
 {
   "message": `Welcome ${user.username}!`,
+  "id": "2"
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pbmEiLCJyb2xlIjoidXNlciIsImlhdCI6MTU4MzE2Nzg4NywiZXhwIjoxNTgzMjU0Mjg3fQ.v6rRltdEr30KAzXbpPkVv1DFXa7t5lBRXRquHMvzmic"
+}
+```
+
+---
+
+## Favorite songs
+
+Make a GET request to:
+
+https://spotify-song-suggester-project.herokuapp.com/api/songs/:id
+
+where :id in the URL is the id of the user.
+
+If successful, the GET request will send back the following response, also as JSON:
+
+```
+{
+  allSavedSongs: [
+    {
+      "title": "try1",
+      "artist": "firsttry",
+      "album": "firstalbum",
+      "album_cover_art": "fdsdf"
+    },
+    {
+      "title": "try2",
+      "artist": "secondtry",
+      "album": "secondalbum",
+      "album_cover_art": "fdsdf"
+    },
+  ]
 }
 ```
 
