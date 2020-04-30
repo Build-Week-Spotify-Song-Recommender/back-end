@@ -59,7 +59,7 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('users')
-                    .dropTableIfExists('songs')
-                    .dropTableIfExists('savedSongs');
+    return knex.schema.dropTableIfExists('savedSongs')
+                       .dropTableIfExists('songs')
+                       .dropTableIfExists('users');
 };
