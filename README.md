@@ -145,13 +145,13 @@ If successful, the DELETE request will send back the following response, also as
 
 ---
 
-## Get suggestions based on a title and artist on a song
+## Get suggestions based on a title and artist of a song
 
 Make a GET request to:
 
 https://spotify-song-suggester-project.herokuapp.com/api/recommendedsongs
 
-This is api can only be used if the user is logged in and have a valid token
+This api can only be used if the user is logged in and have a valid token
 
 The GEt request must include the following fields in the request body as JSON:
 
