@@ -24,53 +24,51 @@ router.post("/:id", (req, res) => {
   let newSong = req.body;
   let title = newSong.title;
 
-  //   songsInDatabase
-  //     .findBy({ title })
-  //     .then((found) => {
-  //       console.log("es", found);
-  //       if (found.length === 0) {
-  //         console.log("inside if");
   songsInDatabase
-    .add(newSong)
-    .then((newAddedSong) => {
-      console.log("new song added", newAddedSong);
+    .findBy({ title })
+    .then((found) => {
+      console.log("es", found);
+      if (found.length === 0) {
+        console.log("inside if");
+        songsInDatabase.add(newSong).then((newAddedSong) => {
+          console.log("new song added", newAddedSong);
 
-      songsInDatabase.getSongID(title).then((foundId) => {
-        const songId = foundId.id;
-        const newSavedSong = { user_id: userId, song_id: songId };
+          songsInDatabase.getSongID(title).then((foundId) => {
+            const songId = foundId.id;
+            const newSavedSong = { user_id: userId, song_id: songId };
 
-        savedSongs
-          .add(newSavedSong)
-          .then((added) => {
-            res
-              .status(201)
-              .json({ message: "a new song was added to favorites" });
-          })
-          .catch((err) => {
-            console.log(err);
-            res.status(500).json({ message: "something went wrong" });
+            savedSongs
+              .add(newSavedSong)
+              .then((added) => {
+                res
+                  .status(201)
+                  .json({ message: "a new song was added to favorites" });
+              })
+              .catch((err) => {
+                console.log(err);
+                res.status(500).json({ message: "something went wrong" });
+              });
           });
-      });
-    })
-    //   } else {
-    //     songsInDatabase.getSongID(title).then((foundId) => {
-    //       const songId = foundId.id;
-    //       const newSavedSong = { user_id: userId, song_id: songId };
+        });
+      } else {
+        songsInDatabase.getSongID(title).then((foundId) => {
+          const songId = foundId.id;
+          const newSavedSong = { user_id: userId, song_id: songId };
 
-    //       savedSongs
-    //         .add(newSavedSong)
-    //         .then((added) => {
-    //           res
-    //             .status(201)
-    //             .json({ message: "a new song was added to favorites" });
-    //         })
-    //         .catch((err) => {
-    //           console.log(err);
-    //           res.status(500).json({ message: "something went wrong" });
-    //         });
-    //     });
-    //   }
-    // })
+          savedSongs
+            .add(newSavedSong)
+            .then((added) => {
+              res
+                .status(201)
+                .json({ message: "a new song was added to favorites" });
+            })
+            .catch((err) => {
+              console.log(err);
+              res.status(500).json({ message: "something went wrong" });
+            });
+        });
+      }
+    })
     .catch((err) => {
       console.log(err);
       res.status(500).json({ message: "something went wrong" });
