@@ -13,9 +13,9 @@ router.post('/register', (req, res) => {
 
   let { username } = req.body;
 
-  Users.findBy({username})
-    .then(found => {
-      if(found.length === 0){
+  // Users.findBy({username})
+  //   .then(found => {
+  //     if(found.length === 0){
         let user = req.body;
         const hash = bcrypt.hashSync(user.password, 14); // 2 ^ n
         user.password = hash;
@@ -29,14 +29,14 @@ router.post('/register', (req, res) => {
             console.log(err);
             res.status(500).json(err);
           });
-      } else {
-        res.status(403).json({message: 'username is already used'});
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+    //   } else {
+    //     res.status(403).json({message: 'username is already used'});
+    //   }
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    //   res.status(500).json(err);
+    // });
 });
 
 router.post('/login', (req, res) => {
