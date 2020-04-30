@@ -4,6 +4,7 @@ module.exports = {
   add,
   findBy,
   findById,
+  getUserID
 };
 
 function findBy(filter) {
@@ -20,4 +21,9 @@ function findById(id) {
   return db('users')
     .where({ id })
     .first();
+}
+
+//returns id of the first user with matched passed username
+function getUserID(username) {
+  return db.select('id').from('users').where({username}).first();
 }

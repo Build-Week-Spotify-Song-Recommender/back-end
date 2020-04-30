@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Build-Week-Spotify-Song-Recommender/back-end#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -28,12 +29,13 @@
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.0",
+    "morgan": "^1.10.0",
     "pg": "^8.0.3",
     "sqlite3": "^4.1.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
-    "jest": "^25.4.0",
+    "jest": "^25.5.1",
     "nodemon": "^2.0.3",
     "supertest": "^4.0.2"
   },

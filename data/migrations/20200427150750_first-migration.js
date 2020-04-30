@@ -27,6 +27,7 @@ exports.up = function(knex) {
         tbl.string('title', 128).notNullable().index();
         tbl.string('artist', 128).notNullable().index();
         tbl.string('album', 128).notNullable();
+        tbl.string('album_cover_art').notNullable();
     })
 
     //database table for saved songs
@@ -58,7 +59,7 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('users')
-                    .dropTableIfExists('songs')
-                    .dropTableIfExists('savedSongs');
+    return knex.schema.dropTableIfExists('savedSongs')
+                       .dropTableIfExists('songs')
+                       .dropTableIfExists('users');
 };

@@ -15,13 +15,13 @@ module.exports = {
     pool: {
       // runs after a connection is made to the sqlite engine
       afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
+        conn.run('PRAGMA foreign_keys = 0', done);
       },
     },
   },
 
   production: {
-    client: 'pg',
+    client: 'postgresql',
     connection: process.env.DATABASE_URL,
     migrations: {
       directory: "./data/migrations",
