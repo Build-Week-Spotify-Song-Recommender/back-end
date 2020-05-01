@@ -5,6 +5,6 @@ const db = require("../data/db-config.js");
 
 describe("GET /api/recommendedsongs", function () {
   describe("/register", function () {
-    it.todo("should");
+    it.todo("one to do");
   });
 });
