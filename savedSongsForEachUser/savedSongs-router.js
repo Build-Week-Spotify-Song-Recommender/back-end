@@ -46,12 +46,10 @@ router.post("/:id", (req, res) => {
               })
               .catch((err) => {
                 console.log(err);
-                res
-                  .status(500)
-                  .json({
-                    message:
-                      "something went wrong if song was not in the database",
-                  });
+                res.status(500).json({
+                  message:
+                    "something went wrong if song was not in the database",
+                });
               });
           });
         });
@@ -69,7 +67,11 @@ router.post("/:id", (req, res) => {
             })
             .catch((err) => {
               console.log(err);
-              res.status(500).json({ message: "something went wrong" });
+              res
+                .status(500)
+                .json({
+                  message: "something went wrong if song was in the database",
+                });
             });
         });
       }
