@@ -6,7 +6,7 @@ exports.up = function (knex) {
       .createTable("users", (tbl) => {
         tbl.increments();
 
-        tbl.string("username", 128).notNullable().unique().index();
+        tbl.string("username", 128).notNullable().unique();
 
         tbl.string("emailAddress", 128).notNullable().unique();
 
@@ -17,8 +17,8 @@ exports.up = function (knex) {
       .createTable("songs", (tbl) => {
         tbl.increments();
 
-        tbl.string("title", 128).notNullable().unique().index();
-        tbl.string("artist", 128).notNullable().index();
+        tbl.string("title", 128).notNullable().unique();
+        tbl.string("artist", 128).notNullable();
         tbl.string("album", 128).notNullable();
         tbl.string("album_cover_art").notNullable();
       })
