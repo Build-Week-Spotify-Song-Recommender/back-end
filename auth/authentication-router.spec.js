@@ -17,56 +17,54 @@ describe("POST /api/auth", function () {
         .then((res) => {
           // assert that the HTTP status code is 201
           expect(res.status).toBe(201);
-        });
-    });
-
-    it("should return 201", function () {
-      // make a POST request to /register endpoint on the server
-      return request(server)
-        .post("/api/auth/register")
-        .send({
-          username: "Briana",
-          password: "Yes",
-          emailAddress: "emailAddr",
-        })
-        .then((res) => {
-          // assert that the HTTP status code is 201
           expect(res.body.message).toBe("a new user was added");
         });
     });
   });
 
-  describe("/login", function () {
+  describe("POST /api/login", function () {
     it("/api/auth/login should return 401 if wrong credentials were submitted", function () {
       // make a POST request to /login endpoint on the server
       return request(server)
-        .post("/api/auth/login")
-        .send({ username: "Brian", password: "NoN" })
+        .post("/api/auth/register")
+        .send({
+          username: "Liza",
+          password: "No",
+          emailAddress: "emailAddremail",
+        })
         .then((res) => {
-          // assert that the HTTP status code is 201
-          expect(res.status).toBe(401);
-        });
-    });
-
-    it("/api/auth/login should return message: 'Invalid credentials", function () {
-      // make a POST request to /login endpoint on the server
-      return request(server)
-        .post("/api/auth/login")
-        .send({ username: "Briana", password: "No" })
-        .then((res) => {
-          // assert that the HTTP status code is 201
-          expect(res.body.message).toBe("Invalid Credentials");
+          expect(res.status).toBe(201);
+          return request(server)
+            .post("/api/auth/login")
+            .send({ username: "Liza", password: "NoN" })
+            .then((loginRes) => {
+              // assert that the HTTP status code is 401
+              expect(loginRes.status).toBe(401);
+              expect(loginRes.body.message).toBe("Invalid Credentials");
+            });
         });
     });
 
     it("/api/auth/login should return 200 if right credentials were submitted", function () {
       // make a POST request to /login endpoint on the server
       return request(server)
-        .post("/api/auth/login")
-        .send({ username: "Brian", password: "Yes" })
+        .post("/api/auth/register")
+        .send({
+          username: "Cori",
+          password: "Hi",
+          emailAddress: "emailAddremailAdds",
+        })
         .then((res) => {
-          // assert that the HTTP status code is 201
-          expect(res.status).toBe(401);
+          expect(res.status).toBe(201);
+          expect(res.body.message).toBe("a new user was added");
+          return request(server)
+            .post("/api/auth/login")
+            .send({ username: "Cori", password: "Hi" })
+            .then((loginRes) => {
+              // assert that the HTTP status code is 200
+              expect(loginRes.status).toBe(200);
+              expect(loginRes.body.message).toBe("Welcome Cori!");
+            });
         });
     });
   });
