@@ -10,31 +10,51 @@ const Users = require("../users/users-model.js");
 // for endpoints beginning with /api/auth
 
 router.post("/register", (req, res) => {
-  let { username } = req.body;
-
-  // Users.findBy({username})
-  //   .then(found => {
-  //     if(found.length === 0){
-  let user = req.body;
-  const hash = bcrypt.hashSync(user.password, 14); // 2 ^ n
+  const user = req.body;
+  const hash = bcrypt.hashSync(user.password, 10);
   user.password = hash;
 
   Users.add(user)
-    .then((saved) => {
-      res.status(201).json({ message: "a new user was added" });
+    .then((user) => {
+      const token = generateToken(user);
+      res.status(201).json({
+        message: `Welcome, ${user.username}!`,
+        id: user.id,
+        username: user.username,
+        token,
+      });
     })
-    .catch((err) => {
-      res.status(500).json(err);
+    .catch((error) => {
+      res.status(500).json({ message: "Error registering! ", error });
     });
-  //   } else {
-  //     res.status(403).json({message: 'username is already used'});
-  //   }
-  // })
-  // .catch(err => {
-  //   console.log(err);
-  //   res.status(500).json(err);
-  // });
 });
+
+// router.post("/register", (req, res) => {
+//   let { username } = req.body;
+
+//   // Users.findBy({username})
+//   //   .then(found => {
+//   //     if(found.length === 0){
+//   let user = req.body;
+//   const hash = bcrypt.hashSync(user.password, 14); // 2 ^ n
+//   user.password = hash;
+
+//   Users.add(user)
+//     .then((saved) => {
+//       res.status(201).json({ message: "a new user was added" });
+//     })
+//     .catch((err) => {
+//       res.status(500).json(err);
+//     });
+//   //   } else {
+//   //     res.status(403).json({message: 'username is already used'});
+//   //   }
+//   // })
+//   // .catch(err => {
+//   //   console.log(err);
+//   //   res.status(500).json(err);
+//   // });
+// });
 
 router.post("/login", (req, res) => {
   let { username, password } = req.body;
