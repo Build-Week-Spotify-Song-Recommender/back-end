@@ -1,9 +1,8 @@
 module.exports = {
-
   development: {
-    client: 'sqlite3',
+    client: "sqlite3",
     connection: {
-      filename: './data/users.db3'
+      filename: "./data/users.db3",
     },
     useNullAsDefault: true,
     migrations: {
@@ -15,13 +14,13 @@ module.exports = {
     pool: {
       // runs after a connection is made to the sqlite engine
       afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = 0', done);
+        conn.run("PRAGMA foreign_keys = 0", done);
       },
     },
   },
 
   production: {
-    client: 'postgresql',
+    client: "pg",
     connection: process.env.DATABASE_URL,
     migrations: {
       directory: "./data/migrations",

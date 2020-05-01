@@ -12,30 +12,28 @@ const Users = require("../users/users-model.js");
 router.post("/register", (req, res) => {
   let { username } = req.body;
 
-  // Users.findBy({username})
-  //   .then(found => {
-  //     if(found.length === 0){
-  let user = req.body;
-  const hash = bcrypt.hashSync(user.password, 14); // 2 ^ n
-  user.password = hash;
+  Users.findBy({ username })
+    .then((found) => {
+      if (found.length === 0) {
+        let user = req.body;
+        const hash = bcrypt.hashSync(user.password, 14); // 2 ^ n
+        user.password = hash;
 
-  Users.add(user)
-    .then((saved) => {
-      console.log(saved);
-      res.status(201).json({ message: "a new user was added" });
+        Users.add(user)
+          .then((saved) => {
+            res.status(201).json({ message: "a new user was added" });
+          })
+          .catch((err) => {
+            res.status(500).json(err);
+          });
+      } else {
+        res.status(403).json({ message: "username is already used" });
+      }
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json({ message: "Error registering! ", err });
     });
-  //   } else {
-  //     res.status(403).json({message: 'username is already used'});
-  //   }
-  // })
-  // .catch(err => {
-  //   console.log(err);
-  //   res.status(500).json(err);
-  // });
 });
 
 router.post("/login", (req, res) => {
