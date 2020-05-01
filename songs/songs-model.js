@@ -1,4 +1,4 @@
-const db = require('../data/db-config.js');
+const db = require("../data/db-config.js");
 
 module.exports = {
   add,
@@ -6,36 +6,30 @@ module.exports = {
   findBy,
   findById,
   removeById,
-  getSongID
+  getSongID,
 };
 
 function getAll() {
-    return db('songs');
-  }
-
-function findBy(filter) {
-  return db('songs').where(filter);
+  return db("songs");
 }
 
-async function add(song) {
-  const [id] = await db('songs').insert(song);
+function findBy(filter) {
+  return db("songs").where(filter);
+}
 
-  return findById(id);
+function add(song) {
+  return db("songs").insert(song);
 }
 
 function findById(id) {
-  return db('songs')
-    .where({ id })
-    .first();
+  return db("songs").where({ id }).first();
 }
 
 function removeById(id) {
-    return db('songs')
-      .where({ id })
-      .del();
+  return db("songs").where({ id }).del();
 }
 
 //returns id of the first song with matched passed title
 function getSongID(title) {
-  return db.select('id').from('songs').where({title}).first();
+  return db.select("id").from("songs").where({ title }).first();
 }
