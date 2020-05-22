@@ -30,6 +30,6 @@ function removeById(id) {
 }
 
 //returns id of the first song with matched passed title
-function getSongID(title) {
-  return db.select("id").from("songs").where({ title }).first();
+function getSongID(track_name) {
+  return db.select("id").from("songs").where({ track_name }).first();
 }

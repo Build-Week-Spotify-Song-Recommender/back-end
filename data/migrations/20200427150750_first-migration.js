@@ -17,10 +17,11 @@ exports.up = function (knex) {
       .createTable("songs", (tbl) => {
         tbl.increments();
 
-        tbl.string("title", 128).notNullable().unique();
+        tbl.string("track_name", 128).notNullable().unique();
+        tbl.string("track_id", 256).notNullable().unique();
         tbl.string("artist", 128).notNullable();
-        tbl.string("album", 128).notNullable();
-        tbl.string("album_cover_art").notNullable();
+        tbl.string("album_name", 128).notNullable();
+        tbl.string("album_cover").notNullable();
       })
 
       //database table for saved songs

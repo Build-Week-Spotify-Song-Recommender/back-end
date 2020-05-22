@@ -14,10 +14,11 @@ function getAllSavedSongsForUser(passedUserId) {
     .join("users", "savedSongs.user_id", "users.id")
     .join("songs", "savedSongs.song_id", "songs.id")
     .select(
-      "songs.title",
+      "songs.track_name",
+      "songs.track_id",
       "songs.artist",
-      "songs.album",
-      "songs.album_cover_art"
+      "songs.album_name",
+      "songs.album_cover"
     );
 }
 

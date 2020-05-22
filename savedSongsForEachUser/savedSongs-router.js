@@ -22,10 +22,10 @@ router.get("/:id", (req, res) => {
 router.post("/:id", (req, res) => {
   const userId = req.params.id;
   let newSong = req.body;
-  let title = newSong.title;
+  let track_name = newSong.track_name;
 
   songsInDatabase
-    .findBy({ title })
+    .findBy({ track_name })
     .then((found) => {
       console.log("es", found);
       if (found.length === 0) {
@@ -33,7 +33,7 @@ router.post("/:id", (req, res) => {
         songsInDatabase.add(newSong).then((newAddedSong) => {
           console.log("new song added", newAddedSong);
 
-          songsInDatabase.getSongID(title).then((foundId) => {
+          songsInDatabase.getSongID(track_name).then((foundId) => {
             const songId = foundId.id;
             const newSavedSong = { user_id: userId, song_id: songId };
 
@@ -54,7 +54,7 @@ router.post("/:id", (req, res) => {
           });
         });
       } else {
-        songsInDatabase.getSongID(title).then((foundId) => {
+        songsInDatabase.getSongID(track_name).then((foundId) => {
           const songId = foundId.id;
           const newSavedSong = { user_id: userId, song_id: songId };
 

@@ -18,9 +18,6 @@ server.use(cors());
 server.use(express.json());
 server.use(morgan("common"));
 
-// server.use(helmet.hidePoweredBy({ setTo: process.env.HEADER }));
-// helmet.frameguard({action: 'deny'});
-
 server.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", true);
