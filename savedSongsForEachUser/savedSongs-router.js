@@ -82,13 +82,15 @@ router.post("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const userId = req.params.id;
-  const songTitle = req.body.title;
+  const songTitle = req.body.track_name;
+
+  console.log('here');
 
   songsInDatabase
     .getSongID(songTitle)
     .then((foundId) => {
       const songId = foundId.id;
-
+      console.log('song ID',songId);
       savedSongs.removeSongFromSaved(userId, songId).then((deleted) => {
         if (deleted === 1) {
           res

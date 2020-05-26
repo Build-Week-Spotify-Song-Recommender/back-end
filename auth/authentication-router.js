@@ -61,6 +61,31 @@ router.post("/login", (req, res) => {
     });
 });
 
+router.put("/updatepassword", (req, res) => {
+  let { username, password, newPassword } = req.body;
+
+  const hash = bcrypt.hashSync(newPassword, 14); // 2 ^ n
+  newPassword = hash;
+
+  Users.findBy({ username })
+    .first()
+    .then((user) => {
+      if (user && bcrypt.compareSync(password, user.password)) {
+        Users.changePassword(username, newPassword).then((result) => {
+          res.status(200).json({
+            result: `${result}`,
+            message: `password was changed successfully`,
+          });
+        });
+      } else {
+        res.status(401).json({ message: "Invalid Credentials" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
+
 function generateToken(user) {
   const payload = {
     userId: user.id,
