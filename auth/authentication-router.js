@@ -6,6 +6,7 @@ const secrets = require("./secrets.js");
 require("dotenv").config();
 
 const Users = require("../users/users-model.js");
+const authenticator = require("./authentication-check-middleware");
 
 // for endpoints beginning with /api/auth
 
@@ -61,7 +62,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.put("/updatepassword", (req, res) => {
+router.put("/updatepassword", authenticator, (req, res) => {
   let { username, password, newPassword } = req.body;
 
   const hash = bcrypt.hashSync(newPassword, 14); // 2 ^ n
