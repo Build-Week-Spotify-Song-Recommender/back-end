@@ -6,6 +6,7 @@ const secrets = require("./secrets.js");
 require("dotenv").config();
 
 const Users = require("../users/users-model.js");
+const authenticator = require("./authentication-check-middleware");
 
 // for endpoints beginning with /api/auth
 
@@ -50,6 +51,31 @@ router.post("/login", (req, res) => {
             message: `Welcome ${user.username}!`,
             id: foundUserId.id,
             token: token,
+          });
+        });
+      } else {
+        res.status(401).json({ message: "Invalid Credentials" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+});
+
+router.put("/updatepassword", authenticator, (req, res) => {
+  let { username, password, newPassword } = req.body;
+
+  const hash = bcrypt.hashSync(newPassword, 14); // 2 ^ n
+  newPassword = hash;
+
+  Users.findBy({ username })
+    .first()
+    .then((user) => {
+      if (user && bcrypt.compareSync(password, user.password)) {
+        Users.changePassword(username, newPassword).then((result) => {
+          res.status(200).json({
+            result: `${result}`,
+            message: `password was changed successfully`,
           });
         });
       } else {

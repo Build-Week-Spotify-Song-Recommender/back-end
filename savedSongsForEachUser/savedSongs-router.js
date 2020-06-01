@@ -22,10 +22,10 @@ router.get("/:id", (req, res) => {
 router.post("/:id", (req, res) => {
   const userId = req.params.id;
   let newSong = req.body;
-  let title = newSong.title;
+  let track_name = newSong.track_name;
 
   songsInDatabase
-    .findBy({ title })
+    .findBy({ track_name })
     .then((found) => {
       console.log("es", found);
       if (found.length === 0) {
@@ -33,7 +33,7 @@ router.post("/:id", (req, res) => {
         songsInDatabase.add(newSong).then((newAddedSong) => {
           console.log("new song added", newAddedSong);
 
-          songsInDatabase.getSongID(title).then((foundId) => {
+          songsInDatabase.getSongID(track_name).then((foundId) => {
             const songId = foundId.id;
             const newSavedSong = { user_id: userId, song_id: songId };
 
@@ -54,7 +54,7 @@ router.post("/:id", (req, res) => {
           });
         });
       } else {
-        songsInDatabase.getSongID(title).then((foundId) => {
+        songsInDatabase.getSongID(track_name).then((foundId) => {
           const songId = foundId.id;
           const newSavedSong = { user_id: userId, song_id: songId };
 
@@ -67,11 +67,9 @@ router.post("/:id", (req, res) => {
             })
             .catch((err) => {
               console.log(err);
-              res
-                .status(500)
-                .json({
-                  message: "something went wrong if song was in the database",
-                });
+              res.status(500).json({
+                message: "something went wrong if song was in the database",
+              });
             });
         });
       }
@@ -84,13 +82,15 @@ router.post("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const userId = req.params.id;
-  const songTitle = req.body.title;
+  const songTitle = req.body.track_name;
+
+  console.log('here');
 
   songsInDatabase
     .getSongID(songTitle)
     .then((foundId) => {
       const songId = foundId.id;
-
+      console.log('song ID',songId);
       savedSongs.removeSongFromSaved(userId, songId).then((deleted) => {
         if (deleted === 1) {
           res
